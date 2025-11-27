@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.2.0
+ * Version: 2.3.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -270,6 +270,77 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $this->end_controls_section();
 
+                // Overlay Content Style Section
+                $this->start_controls_section('section_overlay_style', [
+                    'label' => esc_html__('Overlay Content Style', 'cubeportfolio-elementor-widget'),
+                    'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                    'condition' => [ 'content_position' => 'content-overlay' ],
+                ]);
+                $this->add_control('overlay_bg_color', [
+                    'label'     => esc_html__('Fondo Overlay', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'default'   => '#282727',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_responsive_control('overlay_padding', [
+                    'label'     => esc_html__('Padding', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units'=> ['px', '%', 'em'],
+                    'default'   => [
+                        'top' => '0',
+                        'right' => '0',
+                        'bottom' => '20',
+                        'left' => '20',
+                        'unit' => 'px',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_control('overlay_vertical_align', [
+                    'label' => esc_html__('Alineación Vertical', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => 'flex-end',
+                    'options' => [
+                        'flex-start' => esc_html__('Arriba', 'cubeportfolio-elementor-widget'),
+                        'center' => esc_html__('Centro', 'cubeportfolio-elementor-widget'),
+                        'flex-end' => esc_html__('Abajo', 'cubeportfolio-elementor-widget'),
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'justify-content: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('overlay_horizontal_align', [
+                    'label' => esc_html__('Alineación Horizontal', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => 'flex-start',
+                    'options' => [
+                        'flex-start' => esc_html__('Izquierda', 'cubeportfolio-elementor-widget'),
+                        'center' => esc_html__('Centro', 'cubeportfolio-elementor-widget'),
+                        'flex-end' => esc_html__('Derecha', 'cubeportfolio-elementor-widget'),
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'align-items: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('overlay_title_color', [
+                    'label'     => esc_html__('Color Título', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-l-grid-projects-title' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('overlay_subtitle_color', [
+                    'label'     => esc_html__('Color Subtítulo', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-active .cbp-l-grid-projects-desc' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->end_controls_section();
+
                 // NUEVA SECCION: Estilos para filtro del menú
                 $this->start_controls_section('section_filters_style', [
                     'label' => esc_html__('Filtros - Estilos', 'cubeportfolio-elementor-widget'),
@@ -349,6 +420,15 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $plugin_url = plugin_dir_url(__FILE__);
                 wp_enqueue_style('cubeportfolio-css', $plugin_url . 'assets/cubeportfolio.min.css', [], '4.5.0');
                 wp_enqueue_script('cubeportfolio-js', $plugin_url . 'assets/jquery.cubeportfolio.min.js', ['jquery'], '4.5.0', true);
+                
+                // Add inline CSS for overlay activeWrap base styles
+                $inline_css = '
+                    .cbp-caption-active .cbp-caption-activeWrap {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                ';
+                wp_add_inline_style('cubeportfolio-css', $inline_css);
 
                 // Get Categories
                 $categories = get_terms([
