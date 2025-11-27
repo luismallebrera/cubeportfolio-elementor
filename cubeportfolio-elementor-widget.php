@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.1.0
+ * Version: 2.2.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -424,8 +424,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 data-cbp-mosaic-height="<?php echo esc_attr($cell['height']); ?>"
                             <?php endif; ?>
                         >
-                            <div class="cbp-item-wrapper <?php echo $hover_class; ?>">
-                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption" target="_blank">
+                            <div class="cbp-item-wrapper">
+                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
                                     </div>
@@ -476,6 +476,9 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         gapHorizontal: <?php echo $horizontal_gap; ?>,
                         gapVertical: <?php echo $vertical_gap; ?>,
                         gridAdjustment: 'responsive',
+                        <?php if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])): ?>
+                        caption: '<?php echo esc_js($settings['overlay_caption_animation']); ?>',
+                        <?php endif; ?>
                         <?php if ($settings['portfolio_layout'] === 'mosaic' && !empty($mosaic_cells)): ?>
                         mosaic: <?php echo json_encode($mosaic_cells); ?>,
                         <?php endif; ?>
