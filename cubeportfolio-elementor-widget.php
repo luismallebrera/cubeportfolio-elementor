@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.3.0
+ * Version: 2.4.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -252,6 +252,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'selector' => '{{WRAPPER}} .cbp-l-grid-projects-title',
                     ]
                 );
+                $this->add_control('title_color', [
+                    'label'     => esc_html__('Color', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-grid-projects-title' => 'color: {{VALUE}};',
+                    ],
+                ]);
 
                 $this->end_controls_section();
 
@@ -267,6 +274,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'selector' => '{{WRAPPER}} .cbp-l-grid-projects-desc',
                     ]
                 );
+                $this->add_control('subtitle_color', [
+                    'label'     => esc_html__('Color', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-grid-projects-desc' => 'color: {{VALUE}};',
+                    ],
+                ]);
 
                 $this->end_controls_section();
 
@@ -323,20 +337,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     ],
                     'selectors' => [
                         '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'align-items: {{VALUE}};',
-                    ],
-                ]);
-                $this->add_control('overlay_title_color', [
-                    'label'     => esc_html__('Color Título', 'cubeportfolio-elementor-widget'),
-                    'type'      => \Elementor\Controls_Manager::COLOR,
-                    'selectors' => [
-                        '{{WRAPPER}} .cbp-caption-active .cbp-l-grid-projects-title' => 'color: {{VALUE}};',
-                    ],
-                ]);
-                $this->add_control('overlay_subtitle_color', [
-                    'label'     => esc_html__('Color Subtítulo', 'cubeportfolio-elementor-widget'),
-                    'type'      => \Elementor\Controls_Manager::COLOR,
-                    'selectors' => [
-                        '{{WRAPPER}} .cbp-caption-active .cbp-l-grid-projects-desc' => 'color: {{VALUE}};',
                     ],
                 ]);
                 $this->end_controls_section();
