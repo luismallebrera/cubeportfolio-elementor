@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 1.9.0
+ * Version: 2.1.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -395,7 +395,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $hover_class = '';
                 if ($settings['content_position'] === 'content-overlay') {
-                    $hover_class = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : 'default-effect';
+                    $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
+                    $hover_class = $animation ? 'cbp-caption-' . $animation : '';
                 } elseif ($settings['content_position'] === 'content-under-img') {
                     $hover_class = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : 'no-effect';
                 }
@@ -423,8 +424,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 data-cbp-mosaic-height="<?php echo esc_attr($cell['height']); ?>"
                             <?php endif; ?>
                         >
-                            <div class="cbp-item-wrapper">
-                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
+                            <div class="cbp-item-wrapper <?php echo $hover_class; ?>">
+                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
                                     </div>
