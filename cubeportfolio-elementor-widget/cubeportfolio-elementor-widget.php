@@ -292,6 +292,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $item_index = 0;
                 $pattern_count = count($mosaic_cells);
 
+                $hover_class = '';
+                if ($settings['content_position'] === 'content-overlay') {
+                    $hover_class = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : 'default-effect';
+                } elseif ($settings['content_position'] === 'content-under-img') {
+                    $hover_class = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : 'no-effect';
+                }
+
                 if ($query->have_posts()) :
                     while ($query->have_posts()) : $query->the_post();
                         $item_terms = get_the_terms(get_the_ID(), 'portfolio_category');
@@ -316,7 +323,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             <?php endif; ?>
                         >
                             <div class="cbp-item-wrapper">
-                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption" target="_blank">
+                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
                                     </div>
