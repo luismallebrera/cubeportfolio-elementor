@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 1.7.0
+ * Version: 1.8.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -181,13 +181,30 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $this->add_control('filters_animation', [
                     'label' => esc_html__('Filters Animation', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
-                    'default' => 'fade',
+                    'default' => 'fadeOut',
                     'options' => [
-                        'fade' => esc_html__('Fade', 'cubeportfolio-elementor-widget'),
-                        'slideLeft' => esc_html__('Slide Left', 'cubeportfolio-elementor-widget'),
-                        'slideDelay' => esc_html__('Slide Delay', 'cubeportfolio-elementor-widget'),
-                        'unfold' => esc_html__('Unfold', 'cubeportfolio-elementor-widget'),
+                        '3dflip' => esc_html__('3D Flip', 'cubeportfolio-elementor-widget'),
+                        'bounceBottom' => esc_html__('Bounce Bottom', 'cubeportfolio-elementor-widget'),
+                        'bounceLeft' => esc_html__('Bounce Left', 'cubeportfolio-elementor-widget'),
+                        'bounceTop' => esc_html__('Bounce Top', 'cubeportfolio-elementor-widget'),
+                        'fadeOut' => esc_html__('Fade Out', 'cubeportfolio-elementor-widget'),
+                        'fadeOutTop' => esc_html__('Fade Out Top', 'cubeportfolio-elementor-widget'),
+                        'flipBottom' => esc_html__('Flip Bottom', 'cubeportfolio-elementor-widget'),
+                        'flipOut' => esc_html__('Flip Out', 'cubeportfolio-elementor-widget'),
+                        'flipOutDelay' => esc_html__('Flip Out Delay', 'cubeportfolio-elementor-widget'),
+                        'foldLeft' => esc_html__('Fold Left', 'cubeportfolio-elementor-widget'),
+                        'frontRow' => esc_html__('Front Row', 'cubeportfolio-elementor-widget'),
+                        'moveLeft' => esc_html__('Move Left', 'cubeportfolio-elementor-widget'),
+                        'quicksand' => esc_html__('Quicksand', 'cubeportfolio-elementor-widget'),
+                        'rotateSides' => esc_html__('Rotate Sides', 'cubeportfolio-elementor-widget'),
+                        'rotateRoom' => esc_html__('Rotate Room', 'cubeportfolio-elementor-widget'),
                         'scaleDown' => esc_html__('Scale Down', 'cubeportfolio-elementor-widget'),
+                        'scaleSides' => esc_html__('Scale Sides', 'cubeportfolio-elementor-widget'),
+                        'slideLeft' => esc_html__('Slide Left', 'cubeportfolio-elementor-widget'),
+                        'sequentially' => esc_html__('Sequentially', 'cubeportfolio-elementor-widget'),
+                        'slideDelay' => esc_html__('Slide Delay', 'cubeportfolio-elementor-widget'),
+                        'skew' => esc_html__('Skew', 'cubeportfolio-elementor-widget'),
+                        'unfold' => esc_html__('Unfold', 'cubeportfolio-elementor-widget'),
                     ],
                 ]);
                 $this->end_controls_section();
