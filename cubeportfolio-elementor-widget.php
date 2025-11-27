@@ -239,6 +239,77 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 );
 
                 $this->end_controls_section();
+
+                // NUEVA SECCION: Estilos para filtro del menú
+                $this->start_controls_section('section_filters_style', [
+                    'label' => esc_html__('Filtros - Estilos', 'cubeportfolio-elementor-widget'),
+                    'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                ]);
+                $this->add_group_control(
+                    \Elementor\Group_Control_Typography::get_type(),
+                    [
+                        'name' => 'filters_typography',
+                        'selector' => '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item',
+                    ]
+                );
+                $this->add_control('filters_color', [
+                    'label'     => esc_html__('Color de texto', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('filters_bg_color', [
+                    'label'     => esc_html__('Color de fondo', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_group_control(
+                    \Elementor\Group_Control_Border::get_type(),
+                    [
+                        'name' => 'filters_border',
+                        'selector' => '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item',
+                    ]
+                );
+                $this->add_responsive_control('filters_padding', [
+                    'label'     => esc_html__('Padding', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units'=> ['px', '%', 'em'],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_control('filters_hover_color', [
+                    'label'     => esc_html__('Color texto (Hover)', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item:hover' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('filters_hover_bg_color', [
+                    'label'     => esc_html__('Fondo (Hover)', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item:hover' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('filters_active_color', [
+                    'label'     => esc_html__('Color texto (Activo)', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item-active' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('filters_active_bg_color', [
+                    'label'     => esc_html__('Fondo (Activo)', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item-active' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->end_controls_section();
             }
 
             protected function render() {
