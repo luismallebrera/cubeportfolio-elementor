@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 1.8.0
+ * Version: 1.9.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -428,13 +428,24 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
                                     </div>
-                                    <div class="cbp-caption-activeWrap"></div>
+                                    <div class="cbp-caption-activeWrap">
+                                        <?php if ($settings['content_position'] === 'content-overlay'): ?>
+                                            <?php if (!empty($settings['show_title']) && $settings['show_title'] == 'yes'): ?>
+                                                <div class="cbp-l-grid-projects-title"><?php the_title(); ?></div>
+                                            <?php endif; ?>
+                                            <?php if (!empty($desc_names) && !empty($settings['show_subtitle']) && $settings['show_subtitle'] == 'yes'): ?>
+                                                <div class="cbp-l-grid-projects-desc"><?php echo esc_html(implode(' / ', $desc_names)); ?></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 </a>
-                                <?php if (!empty($settings['show_title']) && $settings['show_title'] == 'yes'): ?>
-                                    <div class="cbp-l-grid-projects-title"><?php the_title(); ?></div>
-                                <?php endif; ?>
-                                <?php if (!empty($desc_names) && !empty($settings['show_subtitle']) && $settings['show_subtitle'] == 'yes'): ?>
-                                    <div class="cbp-l-grid-projects-desc"><?php echo esc_html(implode(' / ', $desc_names)); ?></div>
+                                <?php if ($settings['content_position'] === 'content-under-img'): ?>
+                                    <?php if (!empty($settings['show_title']) && $settings['show_title'] == 'yes'): ?>
+                                        <div class="cbp-l-grid-projects-title"><?php the_title(); ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($desc_names) && !empty($settings['show_subtitle']) && $settings['show_subtitle'] == 'yes'): ?>
+                                        <div class="cbp-l-grid-projects-desc"><?php echo esc_html(implode(' / ', $desc_names)); ?></div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
