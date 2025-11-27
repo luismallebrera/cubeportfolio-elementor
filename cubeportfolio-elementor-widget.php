@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 1.6.0
+ * Version: 1.7.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
