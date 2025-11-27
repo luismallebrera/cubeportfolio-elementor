@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.4.0
+ * Version: 2.5.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -206,6 +206,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'skew' => esc_html__('Skew', 'cubeportfolio-elementor-widget'),
                         'unfold' => esc_html__('Unfold', 'cubeportfolio-elementor-widget'),
                     ],
+                ]);
+                $this->add_control('scroll_offset', [
+                    'label' => esc_html__('Scroll Offset', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 0,
+                    'description' => esc_html__('Offset en px para el scroll al hacer clic en filtros', 'cubeportfolio-elementor-widget'),
                 ]);
                 $this->end_controls_section();
 
@@ -545,6 +551,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     isset($settings['portfolio_columns']) ? intval($settings['portfolio_columns']) : 3
                 );
 
+                $scroll_offset = isset($settings['scroll_offset']) ? intval($settings['scroll_offset']) : 0;
                 ?>
                 <script>
                 jQuery(document).ready(function($){
@@ -565,6 +572,20 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         mediaQueries: [
                             { width: 1200, cols: <?php echo $portfolio_columns; ?> }
                         ]
+                    });
+
+                    // Scroll con Lenis después de 1 segundo al hacer clic en filtros
+                    $('#filters-<?php echo esc_js($widget_id); ?> .cbp-filter-item').on('click', function(){
+                        setTimeout(function(){
+                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
+                            if (targetElement.length && window.lenis) {
+                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
+                                window.lenis.scrollTo(targetPosition, {
+                                    duration: 1.2,
+                                    easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+                                });
+                            }
+                        }, 1000);
                     });
                 });
                 </script>
