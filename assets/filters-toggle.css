@@ -28,7 +28,6 @@
     min-width: 200px;
     visibility: hidden;
     transition: visibility 0s 1s;
-    max-height: 405px;
 }
 
 .cbp-filters-wrapper::before {
@@ -49,7 +48,6 @@
 .cbp-filters-wrapper.active {
     visibility: visible;
     transition: visibility 0s 0s;
-    max-height: 405px;
 }
 
 .cbp-filters-wrapper.active::before {
