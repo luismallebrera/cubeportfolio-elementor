@@ -791,6 +791,28 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
+                $this->add_responsive_control('filters_alignment', [
+                    'label' => esc_html__('Alineación', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::CHOOSE,
+                    'options' => [
+                        'flex-start' => [
+                            'title' => esc_html__('Izquierda', 'cubeportfolio-elementor-widget'),
+                            'icon' => 'eicon-text-align-left',
+                        ],
+                        'center' => [
+                            'title' => esc_html__('Centro', 'cubeportfolio-elementor-widget'),
+                            'icon' => 'eicon-text-align-center',
+                        ],
+                        'flex-end' => [
+                            'title' => esc_html__('Derecha', 'cubeportfolio-elementor-widget'),
+                            'icon' => 'eicon-text-align-right',
+                        ],
+                    ],
+                    'default' => 'center',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button' => 'align-items: {{VALUE}};',
+                    ],
+                ]);
                 $this->add_control('filters_hover_color', [
                     'label'     => esc_html__('Color texto (Hover)', 'cubeportfolio-elementor-widget'),
                     'type'      => \Elementor\Controls_Manager::COLOR,
