@@ -524,16 +524,18 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         display: flex;
                         flex-direction: column;
                     }
-                    .zoom-effect {
+                    .cbp-caption-zoom {
                         overflow: hidden;
-                        display: block;
                     }
-                    .zoom-effect img {
+                    .cbp-caption-zoom .cbp-item-wrapper {
+                        overflow: hidden;
+                    }
+                    .cbp-caption-zoom img {
                         transition: transform 0.3s ease;
                         display: block;
                         width: 100%;
                     }
-                    .zoom-effect:hover img {
+                    .cbp-caption-zoom .cbp-item-wrapper:hover img {
                         transform: scale(1.1);
                     }
                 ';
@@ -559,7 +561,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $container_class = 'cubeportfolio-elementor-widget';
                 if ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])) {
                     if ($settings['under_image_caption_animation'] === 'zoom') {
-                        $container_class .= ' zoom-effect';
+                        $container_class .= ' cbp-caption-zoom';
                     }
                 }
                 
