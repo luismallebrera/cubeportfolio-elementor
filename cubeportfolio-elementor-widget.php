@@ -262,6 +262,20 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'default' => ['size' => 30],
                     'range' => ['px' => ['min' => 0, 'max' => 100]],
                 ]);
+                $this->add_control('show_filter_toggle', [
+                    'label' => esc_html__('Mostrar Botón Toggle Filtros', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SWITCHER,
+                    'label_on' => esc_html__('Sí', 'cubeportfolio-elementor-widget'),
+                    'label_off' => esc_html__('No', 'cubeportfolio-elementor-widget'),
+                    'return_value' => 'yes',
+                    'default' => '',
+                ]);
+                $this->add_control('filter_toggle_text', [
+                    'label' => esc_html__('Texto del Botón', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::TEXT,
+                    'default' => esc_html__('Filtros', 'cubeportfolio-elementor-widget'),
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
                 $this->end_controls_section();
 
                 // Animation Section
@@ -539,6 +553,33 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-caption-zoom .cbp-item-wrapper:hover img {
                         transform: scale(1.1);
                     }
+                    .cbp-filter-toggle-btn {
+                        position: fixed;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 9999;
+                        padding: 12px 24px;
+                        background: #333;
+                        color: #fff;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-weight: 500;
+                        transition: background 0.3s ease;
+                    }
+                    .cbp-filter-toggle-btn:hover {
+                        background: #555;
+                    }
+                    .cbp-filters-wrapper {
+                        overflow: hidden;
+                        max-height: 0;
+                        transition: max-height 0.3s ease;
+                    }
+                    .cbp-filters-wrapper.active {
+                        max-height: 500px;
+                    }
                 ';
                 wp_add_inline_style('cubeportfolio-css', $inline_css);
 
@@ -548,13 +589,23 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'hide_empty' => true,
                 ]);
                 echo '<div class="cubeportfolio-widget-container">';
+                
+                // Botón toggle si está activado
+                if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
+                    $toggle_text = !empty($settings['filter_toggle_text']) ? esc_html($settings['filter_toggle_text']) : esc_html__('Filtros', 'cubeportfolio-elementor-widget');
+                    echo '<button class="cbp-filter-toggle-btn" data-target="filters-' . esc_attr($widget_id) . '">' . $toggle_text . '</button>';
+                }
+                
                 if (!empty($categories) && !is_wp_error($categories)) {
+                    $wrapper_class = !empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes' ? 'cbp-filters-wrapper' : '';
+                    echo '<div id="filters-wrapper-' . esc_attr($widget_id) . '" class="' . esc_attr($wrapper_class) . '">';
                     echo '<div id="filters-' . esc_attr($widget_id) . '" class="cbp-l-filters-button">';
                     echo '<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">' . esc_html__('All', 'cubeportfolio-elementor-widget') . '<div class="cbp-filter-counter"></div></div>';
                     foreach ($categories as $cat) {
                         echo '<div data-filter=".' . esc_attr($cat->slug) . '" class="cbp-filter-item">';
                         echo esc_html($cat->name) . '<div class="cbp-filter-counter"></div></div>';
                     }
+                    echo '</div>';
                     echo '</div>';
                 }
                 
@@ -689,6 +740,11 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 ?>
                 <script>
                 jQuery(document).ready(function($){
+                    // Toggle para filtros
+                    $('.cbp-filter-toggle-btn[data-target="filters-<?php echo esc_js($widget_id); ?>"]').on('click', function() {
+                        $('#filters-wrapper-<?php echo esc_js($widget_id); ?>').toggleClass('active');
+                    });
+                    
                     $('#<?php echo esc_js($widget_id); ?>').cubeportfolio({
                         filters: '#filters-<?php echo esc_js($widget_id); ?>',
                         layoutMode: '<?php echo esc_js($settings['portfolio_layout']); ?>',
