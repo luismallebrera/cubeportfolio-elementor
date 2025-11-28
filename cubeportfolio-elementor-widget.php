@@ -395,6 +395,31 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '{{WRAPPER}} .cbp-filter-toggle-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
+                $this->add_responsive_control('toggle_button_width', [
+                    'label' => esc_html__('Ancho', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'size_units' => ['px', '%', 'vw'],
+                    'range' => [
+                        'px' => [
+                            'min' => 100,
+                            'max' => 1000,
+                            'step' => 10,
+                        ],
+                        '%' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'vw' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'width: {{SIZE}}{{UNIT}}; min-width: auto;',
+                    ],
+                ]);
                 $this->add_control('toggle_button_backdrop_blur', [
                     'label' => esc_html__('Backdrop Blur', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SLIDER,
@@ -478,6 +503,31 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     ],
                     'selectors' => [
                         '{{WRAPPER}} .cbp-filters-wrapper::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_responsive_control('filters_panel_width', [
+                    'label' => esc_html__('Ancho', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'size_units' => ['px', '%', 'vw'],
+                    'range' => [
+                        'px' => [
+                            'min' => 100,
+                            'max' => 1000,
+                            'step' => 10,
+                        ],
+                        '%' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'vw' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'width: {{SIZE}}{{UNIT}}; min-width: auto;',
                     ],
                 ]);
                 $this->add_control('filters_panel_backdrop_blur', [
