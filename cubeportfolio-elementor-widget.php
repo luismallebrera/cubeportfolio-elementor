@@ -411,7 +411,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'unit' => 'px',
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
                 $this->add_responsive_control('filters_panel_border_radius', [
