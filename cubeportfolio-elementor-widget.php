@@ -329,6 +329,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'size' => 100,
                     ],
                     'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'max-height: {{SIZE}}{{UNIT}};',
                         '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: {{SIZE}}{{UNIT}};',
                     ],
                     'condition' => ['show_filter_toggle' => 'yes'],
