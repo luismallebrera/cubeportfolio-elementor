@@ -573,12 +573,26 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         background: #555;
                     }
                     .cbp-filters-wrapper {
+                        position: fixed;
+                        bottom: 70px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        z-index: 9998;
                         overflow: hidden;
                         max-height: 0;
                         transition: max-height 0.3s ease;
+                        background: #fff;
+                        border-radius: 4px;
+                        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
                     }
                     .cbp-filters-wrapper.active {
                         max-height: 500px;
+                        padding: 15px;
+                    }
+                    .cbp-filters-wrapper .cbp-l-filters-button {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
                     }
                 ';
                 wp_add_inline_style('cubeportfolio-css', $inline_css);
