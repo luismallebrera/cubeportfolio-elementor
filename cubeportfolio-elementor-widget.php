@@ -586,21 +586,19 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 if ($query->have_posts()) :
                     while ($query->have_posts()) : $query->the_post();
                         
-                        // Determinar clase de zoom para el contenedor (dentro del loop)
+                        // Determinar clases de animación
                         $zoom_class = '';
                         $hover_class = '';
                         if ($settings['content_position'] === 'content-overlay') {
                             $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
-                            if ($animation === 'zoom') {
-                                $zoom_class = 'zoom-effect';
-                            }
                             $hover_class = $animation ? 'cbp-caption-' . $animation : '';
+                            // Para overlay, el zoom lo maneja CubePortfolio con cbp-caption-zoom
                         } elseif ($settings['content_position'] === 'content-under-img') {
                             $animation = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : '';
                             if ($animation === 'zoom') {
                                 $zoom_class = 'zoom-effect';
                             }
-                            $hover_class = '';
+                            // Para under-img NO usamos clases en el anchor
                         }
                         
                         $item_terms = get_the_terms(get_the_ID(), 'portfolio_category');
