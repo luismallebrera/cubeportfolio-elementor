@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.9.0
+ * Version: 3.0.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -686,21 +686,25 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             { width: <?php echo $bp_tablet; ?>, cols: <?php echo $cols_tablet; ?> },
                             { width: <?php echo $bp_mobile_extra; ?>, cols: <?php echo $cols_mobile_extra; ?> },
                             { width: <?php echo $bp_mobile; ?>, cols: <?php echo $cols_mobile; ?> }
-                        ]
-                    });
-
-                    // Scroll con Lenis después de 1 segundo al hacer clic en filtros
-                    $('#filters-<?php echo esc_js($widget_id); ?> .cbp-filter-item').on('click', function(){
-                        setTimeout(function(){
-                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
-                            if (targetElement.length && window.lenis) {
-                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
-                                window.lenis.scrollTo(targetPosition, {
-                                    duration: 1.2,
-                                    easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
-                                });
+                        ],
+                        plugins: {
+                            loadMore: {
+                                element: '',
+                                action: 'click',
+                                loadItems: 3,
                             }
-                        }, 1000);
+                        },
+                        displayTypeSpeed: 100
+                    }).on('filterComplete.cbp', function() {
+                        // Callback que se ejecuta DESPUÉS de que termine la animación de filtrado
+                        var targetElement = $('#<?php echo esc_js($widget_id); ?>');
+                        if (targetElement.length && window.lenis) {
+                            var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
+                            window.lenis.scrollTo(targetPosition, {
+                                duration: 1.2,
+                                easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+                            });
+                        }
                     });
                 });
                 </script>
