@@ -568,6 +568,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         font-size: 14px;
                         font-weight: 500;
                         transition: background 0.3s ease;
+                        min-width: 200px;
                     }
                     .cbp-filter-toggle-btn:hover {
                         background: #555;
@@ -584,6 +585,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         background: #fff;
                         border-radius: 4px;
                         box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                        min-width: 200px;
                     }
                     .cbp-filters-wrapper.active {
                         max-height: 500px;
@@ -592,7 +594,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-filters-wrapper .cbp-l-filters-button {
                         display: flex;
                         flex-direction: column;
-                        gap: 10px;
+                        gap: 5px;
                     }
                 ';
                 wp_add_inline_style('cubeportfolio-css', $inline_css);
