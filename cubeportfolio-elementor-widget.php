@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.6.0
+ * Version: 2.7.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -36,13 +36,39 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'mosaic' => esc_html__('Mosaic', 'cubeportfolio-elementor-widget'),
                     ],
                 ]);
-                $this->add_responsive_control('portfolio_columns', [
-                    'label' => esc_html__('Columns', 'cubeportfolio-elementor-widget'),
+                $this->add_control('portfolio_columns_desktop', [
+                    'label' => esc_html__('Columns Desktop (> 1500px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => '4',
+                    'options' => [
+                        '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+                        '5' => '5', '6' => '6', '7' => '7', '8' => '8',
+                    ],
+                ]);
+                $this->add_control('portfolio_columns_laptop', [
+                    'label' => esc_html__('Columns Laptop (1100px - 1500px)', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
                     'default' => '3',
                     'options' => [
                         '1' => '1', '2' => '2', '3' => '3', '4' => '4',
                         '5' => '5', '6' => '6', '7' => '7', '8' => '8',
+                    ],
+                ]);
+                $this->add_control('portfolio_columns_tablet', [
+                    'label' => esc_html__('Columns Tablet (800px - 1100px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => '2',
+                    'options' => [
+                        '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+                        '5' => '5', '6' => '6', '7' => '7', '8' => '8',
+                    ],
+                ]);
+                $this->add_control('portfolio_columns_mobile', [
+                    'label' => esc_html__('Columns Mobile (< 800px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => '1',
+                    'options' => [
+                        '1' => '1', '2' => '2', '3' => '3', '4' => '4',
                     ],
                 ]);
                 $this->end_controls_section();
@@ -547,28 +573,14 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $horizontal_gap = isset($settings['horizontal_space']['size']) ? intval($settings['horizontal_space']['size']) : 20;
                 $vertical_gap = isset($settings['vertical_space']['size']) ? intval($settings['vertical_space']['size']) : 20;
-                
-                // Get responsive columns value
-                $portfolio_columns = 3; // default
-                if ($settings['portfolio_layout'] === 'mosaic' && $max_width) {
-                    $portfolio_columns = $max_width;
-                } else {
-                    // Check for responsive values
-                    if (!empty($settings['portfolio_columns'])) {
-                        $portfolio_columns = intval($settings['portfolio_columns']);
-                    } elseif (!empty($settings['portfolio_columns_tablet'])) {
-                        $portfolio_columns = intval($settings['portfolio_columns_tablet']);
-                    } elseif (!empty($settings['portfolio_columns_mobile'])) {
-                        $portfolio_columns = intval($settings['portfolio_columns_mobile']);
-                    }
-                }
 
                 $scroll_offset = isset($settings['scroll_offset']) ? intval($settings['scroll_offset']) : 0;
                 
-                // Get responsive columns for each breakpoint
-                $cols_desktop = !empty($settings['portfolio_columns']) ? intval($settings['portfolio_columns']) : 3;
-                $cols_tablet = !empty($settings['portfolio_columns_tablet']) ? intval($settings['portfolio_columns_tablet']) : $cols_desktop;
-                $cols_mobile = !empty($settings['portfolio_columns_mobile']) ? intval($settings['portfolio_columns_mobile']) : $cols_tablet;
+                // Get columns for each breakpoint
+                $cols_desktop = !empty($settings['portfolio_columns_desktop']) ? intval($settings['portfolio_columns_desktop']) : 4;
+                $cols_laptop = !empty($settings['portfolio_columns_laptop']) ? intval($settings['portfolio_columns_laptop']) : 3;
+                $cols_tablet = !empty($settings['portfolio_columns_tablet']) ? intval($settings['portfolio_columns_tablet']) : 2;
+                $cols_mobile = !empty($settings['portfolio_columns_mobile']) ? intval($settings['portfolio_columns_mobile']) : 1;
                 
                 // For mosaic, use max_width as desktop columns
                 if ($settings['portfolio_layout'] === 'mosaic' && $max_width) {
@@ -593,8 +605,9 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         <?php endif; ?>
                         mediaQueries: [
                             { width: 1500, cols: <?php echo $cols_desktop; ?> },
-                            { width: 1100, cols: <?php echo $cols_tablet; ?> },
-                            { width: 800, cols: <?php echo $cols_mobile; ?> }
+                            { width: 1100, cols: <?php echo $cols_laptop; ?> },
+                            { width: 800, cols: <?php echo $cols_tablet; ?> },
+                            { width: 480, cols: <?php echo $cols_mobile; ?> }
                         ]
                     });
 
