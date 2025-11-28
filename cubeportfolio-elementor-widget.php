@@ -945,13 +945,16 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
                             
                             if (window.lenis) {
-                                // Usar Lenis si está disponible
+                                // Usar Lenis con animación suave
                                 window.lenis.scrollTo(targetPosition, {
-                                    immediate: true
+                                    duration: 1.2,
+                                    easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
                                 });
                             } else {
-                                // Fallback a scroll inmediato
-                                window.scrollTo(0, targetPosition);
+                                // Fallback con jQuery animate
+                                $('html, body').animate({
+                                    scrollTop: targetPosition
+                                }, 800);
                             }
                         }
                     });
