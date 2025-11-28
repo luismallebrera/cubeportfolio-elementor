@@ -395,6 +395,25 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '{{WRAPPER}} .cbp-filter-toggle-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
+                $this->add_control('toggle_button_backdrop_blur', [
+                    'label' => esc_html__('Backdrop Blur', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'size_units' => ['px'],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 50,
+                            'step' => 1,
+                        ],
+                    ],
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'backdrop-filter: blur({{SIZE}}{{UNIT}}); -webkit-backdrop-filter: blur({{SIZE}}{{UNIT}});',
+                    ],
+                ]);
                 $this->add_control('toggle_button_hover_heading', [
                     'label' => esc_html__('Hover', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::HEADING,
@@ -461,6 +480,33 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '{{WRAPPER}} .cbp-filters-wrapper::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
+                $this->add_control('filters_panel_backdrop_blur', [
+                    'label' => esc_html__('Backdrop Blur', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'size_units' => ['px'],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 50,
+                            'step' => 1,
+                        ],
+                    ],
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper::before' => 'backdrop-filter: blur({{SIZE}}{{UNIT}}); -webkit-backdrop-filter: blur({{SIZE}}{{UNIT}});',
+                    ],
+                ]);
+                $this->add_group_control(
+                    \Elementor\Group_Control_Box_Shadow::get_type(),
+                    [
+                        'name' => 'filters_panel_box_shadow',
+                        'label' => esc_html__('Box Shadow', 'cubeportfolio-elementor-widget'),
+                        'selector' => '{{WRAPPER}} .cbp-filters-wrapper::before',
+                    ]
+                );
                 $this->end_controls_section();
 
                 // Animation Section
