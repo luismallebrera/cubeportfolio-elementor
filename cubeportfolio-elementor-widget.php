@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.7.0
+ * Version: 2.9.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -36,8 +36,66 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'mosaic' => esc_html__('Mosaic', 'cubeportfolio-elementor-widget'),
                     ],
                 ]);
-                $this->add_control('portfolio_columns_desktop', [
-                    'label' => esc_html__('Columns Desktop (> 1500px)', 'cubeportfolio-elementor-widget'),
+                // Breakpoints Configuration
+                $this->add_control('breakpoints_heading', [
+                    'label' => esc_html__('Breakpoints Configuration', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::HEADING,
+                    'separator' => 'before',
+                ]);
+                $this->add_control('widescreen_breakpoint', [
+                    'label' => esc_html__('Widescreen Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 1920,
+                    'min' => 1200,
+                ]);
+                $this->add_control('desktop_breakpoint', [
+                    'label' => esc_html__('Desktop Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 1440,
+                    'min' => 1200,
+                ]);
+                $this->add_control('laptop_breakpoint', [
+                    'label' => esc_html__('Laptop Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 1200,
+                    'min' => 1024,
+                ]);
+                $this->add_control('tablet_breakpoint', [
+                    'label' => esc_html__('Tablet Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 1024,
+                    'min' => 768,
+                ]);
+                $this->add_control('mobile_extra_breakpoint', [
+                    'label' => esc_html__('Mobile Extra Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 880,
+                    'min' => 480,
+                ]);
+                $this->add_control('mobile_breakpoint', [
+                    'label' => esc_html__('Mobile Breakpoint (px)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::NUMBER,
+                    'default' => 767,
+                    'min' => 320,
+                ]);
+                
+                // Columns Configuration
+                $this->add_control('columns_heading', [
+                    'label' => esc_html__('Columns Configuration', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::HEADING,
+                    'separator' => 'before',
+                ]);
+                $this->add_control('columns_widescreen', [
+                    'label' => esc_html__('Columns Widescreen', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => '5',
+                    'options' => [
+                        '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+                        '5' => '5', '6' => '6', '7' => '7', '8' => '8',
+                    ],
+                ]);
+                $this->add_control('columns_desktop', [
+                    'label' => esc_html__('Columns Desktop', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
                     'default' => '4',
                     'options' => [
@@ -45,8 +103,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '5' => '5', '6' => '6', '7' => '7', '8' => '8',
                     ],
                 ]);
-                $this->add_control('portfolio_columns_laptop', [
-                    'label' => esc_html__('Columns Laptop (1100px - 1500px)', 'cubeportfolio-elementor-widget'),
+                $this->add_control('columns_laptop', [
+                    'label' => esc_html__('Columns Laptop', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
                     'default' => '3',
                     'options' => [
@@ -54,17 +112,25 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '5' => '5', '6' => '6', '7' => '7', '8' => '8',
                     ],
                 ]);
-                $this->add_control('portfolio_columns_tablet', [
-                    'label' => esc_html__('Columns Tablet (800px - 1100px)', 'cubeportfolio-elementor-widget'),
+                $this->add_control('columns_tablet', [
+                    'label' => esc_html__('Columns Tablet', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
-                    'default' => '2',
+                    'default' => '3',
                     'options' => [
                         '1' => '1', '2' => '2', '3' => '3', '4' => '4',
                         '5' => '5', '6' => '6', '7' => '7', '8' => '8',
                     ],
                 ]);
-                $this->add_control('portfolio_columns_mobile', [
-                    'label' => esc_html__('Columns Mobile (< 800px)', 'cubeportfolio-elementor-widget'),
+                $this->add_control('columns_mobile_extra', [
+                    'label' => esc_html__('Columns Mobile Extra', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SELECT,
+                    'default' => '2',
+                    'options' => [
+                        '1' => '1', '2' => '2', '3' => '3', '4' => '4',
+                    ],
+                ]);
+                $this->add_control('columns_mobile', [
+                    'label' => esc_html__('Columns Mobile', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
                     'default' => '1',
                     'options' => [
@@ -576,15 +642,25 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $scroll_offset = isset($settings['scroll_offset']) ? intval($settings['scroll_offset']) : 0;
                 
-                // Get columns for each breakpoint
-                $cols_desktop = !empty($settings['portfolio_columns_desktop']) ? intval($settings['portfolio_columns_desktop']) : 4;
-                $cols_laptop = !empty($settings['portfolio_columns_laptop']) ? intval($settings['portfolio_columns_laptop']) : 3;
-                $cols_tablet = !empty($settings['portfolio_columns_tablet']) ? intval($settings['portfolio_columns_tablet']) : 2;
-                $cols_mobile = !empty($settings['portfolio_columns_mobile']) ? intval($settings['portfolio_columns_mobile']) : 1;
+                // Get breakpoints configuration
+                $bp_widescreen = !empty($settings['widescreen_breakpoint']) ? intval($settings['widescreen_breakpoint']) : 1920;
+                $bp_desktop = !empty($settings['desktop_breakpoint']) ? intval($settings['desktop_breakpoint']) : 1440;
+                $bp_laptop = !empty($settings['laptop_breakpoint']) ? intval($settings['laptop_breakpoint']) : 1200;
+                $bp_tablet = !empty($settings['tablet_breakpoint']) ? intval($settings['tablet_breakpoint']) : 1024;
+                $bp_mobile_extra = !empty($settings['mobile_extra_breakpoint']) ? intval($settings['mobile_extra_breakpoint']) : 880;
+                $bp_mobile = !empty($settings['mobile_breakpoint']) ? intval($settings['mobile_breakpoint']) : 767;
                 
-                // For mosaic, use max_width as desktop columns
+                // Get columns for each breakpoint
+                $cols_widescreen = !empty($settings['columns_widescreen']) ? intval($settings['columns_widescreen']) : 5;
+                $cols_desktop = !empty($settings['columns_desktop']) ? intval($settings['columns_desktop']) : 4;
+                $cols_laptop = !empty($settings['columns_laptop']) ? intval($settings['columns_laptop']) : 3;
+                $cols_tablet = !empty($settings['columns_tablet']) ? intval($settings['columns_tablet']) : 3;
+                $cols_mobile_extra = !empty($settings['columns_mobile_extra']) ? intval($settings['columns_mobile_extra']) : 2;
+                $cols_mobile = !empty($settings['columns_mobile']) ? intval($settings['columns_mobile']) : 1;
+                
+                // For mosaic, use max_width for the largest breakpoint
                 if ($settings['portfolio_layout'] === 'mosaic' && $max_width) {
-                    $cols_desktop = $max_width;
+                    $cols_widescreen = $max_width;
                 }
                 ?>
                 <script>
@@ -604,10 +680,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         mosaic: <?php echo json_encode($mosaic_cells); ?>,
                         <?php endif; ?>
                         mediaQueries: [
-                            { width: 1500, cols: <?php echo $cols_desktop; ?> },
-                            { width: 1100, cols: <?php echo $cols_laptop; ?> },
-                            { width: 800, cols: <?php echo $cols_tablet; ?> },
-                            { width: 480, cols: <?php echo $cols_mobile; ?> }
+                            { width: <?php echo $bp_widescreen; ?>, cols: <?php echo $cols_widescreen; ?> },
+                            { width: <?php echo $bp_desktop; ?>, cols: <?php echo $cols_desktop; ?> },
+                            { width: <?php echo $bp_laptop; ?>, cols: <?php echo $cols_laptop; ?> },
+                            { width: <?php echo $bp_tablet; ?>, cols: <?php echo $cols_tablet; ?> },
+                            { width: <?php echo $bp_mobile_extra; ?>, cols: <?php echo $cols_mobile_extra; ?> },
+                            { width: <?php echo $bp_mobile; ?>, cols: <?php echo $cols_mobile; ?> }
                         ]
                     });
 
