@@ -721,6 +721,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         max-height: 500px;
                     }
                     /* Mostrar en editor de Elementor */
+                    .cubeportfolio-widget-container.elementor-editing-mode .cbp-filter-toggle-btn,
                     body.elementor-editor-active .cbp-filter-toggle-btn,
                     .elementor-editor-active .cbp-filter-toggle-btn,
                     .elementor-preview-mode .cbp-filter-toggle-btn {
@@ -728,9 +729,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         bottom: auto !important;
                         left: auto !important;
                         transform: none !important;
-                        margin-bottom: 10px !important;
+                        margin: 0 0 15px 0 !important;
                         display: block !important;
+                        width: 100% !important;
+                        max-width: 300px !important;
                     }
+                    .cubeportfolio-widget-container.elementor-editing-mode .cbp-filters-wrapper,
                     body.elementor-editor-active .cbp-filters-wrapper,
                     .elementor-editor-active .cbp-filters-wrapper,
                     .elementor-preview-mode .cbp-filters-wrapper {
@@ -740,8 +744,10 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         transform: none !important;
                         max-height: none !important;
                         overflow: visible !important;
-                        margin-bottom: 20px !important;
+                        margin: 0 0 20px 0 !important;
                         display: block !important;
+                        width: 100% !important;
+                        box-shadow: none !important;
                     }
                     .cbp-filters-wrapper .cbp-l-filters-button {
                         display: flex;
@@ -756,7 +762,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'taxonomy' => 'portfolio_category',
                     'hide_empty' => true,
                 ]);
-                echo '<div class="cubeportfolio-widget-container">';
+                
+                // Detectar si estamos en el editor de Elementor
+                $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
+                $editor_class = $is_editor ? ' elementor-editing-mode' : '';
+                
+                echo '<div class="cubeportfolio-widget-container' . $editor_class . '">';
                 
                 // Botón toggle si está activado
                 if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
