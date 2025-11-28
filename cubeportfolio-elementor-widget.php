@@ -354,6 +354,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type'      => \Elementor\Controls_Manager::COLOR,
                     'selectors' => [
                         '{{WRAPPER}} .cbp-l-grid-projects-title' => 'color: {{VALUE}};',
+                        '{{WRAPPER}} .cbp-l-grid-projects-title a' => 'color: {{VALUE}};',
                     ],
                 ]);
 
