@@ -540,7 +540,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type'      => \Elementor\Controls_Manager::COLOR,
                     'default'   => '#282727',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'background-color: {{VALUE}};',
+                        '{{WRAPPER}} .cbp-caption-active .cbp-caption-activeWrap' => 'background-color: {{VALUE}}; display: flex; flex-direction: column;',
                     ],
                 ]);
                 $this->add_responsive_control('overlay_padding', [
@@ -673,29 +673,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $plugin_url = plugin_dir_url(__FILE__);
                 wp_enqueue_style('cubeportfolio-css', $plugin_url . 'assets/cubeportfolio.min.css', [], '4.5.0');
                 wp_enqueue_script('cubeportfolio-js', $plugin_url . 'assets/jquery.cubeportfolio.min.js', ['jquery'], '4.5.0', true);
-                
-                // Add inline CSS for overlay activeWrap base styles
-                $inline_css = '
-                    .cbp-caption-active .cbp-caption-activeWrap {
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    .cbp-caption-zoom {
-                        overflow: hidden;
-                    }
-                    .cbp-caption-zoom .cbp-item-wrapper {
-                        overflow: hidden;
-                    }
-                    .cbp-caption-zoom img {
-                        transition: transform 0.3s ease;
-                        display: block;
-                        width: 100%;
-                    }
-                    .cbp-caption-zoom .cbp-item-wrapper:hover img {
-                        transform: scale(1.1);
-                    }
-                ';
-                wp_add_inline_style('cubeportfolio-css', $inline_css);
                 
                 // Cargar CSS de filtros toggle inline
                 if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
