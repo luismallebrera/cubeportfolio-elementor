@@ -795,7 +795,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'label' => esc_html__('Alineación', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::CHOOSE,
                     'options' => [
-                        'flex-start' => [
+                        'left' => [
                             'title' => esc_html__('Izquierda', 'cubeportfolio-elementor-widget'),
                             'icon' => 'eicon-text-align-left',
                         ],
@@ -803,15 +803,14 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             'title' => esc_html__('Centro', 'cubeportfolio-elementor-widget'),
                             'icon' => 'eicon-text-align-center',
                         ],
-                        'flex-end' => [
+                        'right' => [
                             'title' => esc_html__('Derecha', 'cubeportfolio-elementor-widget'),
                             'icon' => 'eicon-text-align-right',
                         ],
                     ],
                     'default' => 'center',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-l-filters-button' => 'align-items: {{VALUE}};',
-                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'width: 100%;',
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'width: 100%; text-align: {{VALUE}};',
                     ],
                 ]);
                 $this->add_control('filters_hover_color', [
