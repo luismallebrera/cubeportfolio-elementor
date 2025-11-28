@@ -43,6 +43,7 @@
     background-color: #FFFFFFA8;
     border-radius: 4px 4px 4px 4px;
     transform: scaleY(0);
+    transform-origin: bottom;
 }
 
 .cbp-filters-wrapper.active {
