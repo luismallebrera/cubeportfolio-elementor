@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 3.2.0
+ * Version: 3.3.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -234,7 +234,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::SELECT,
                     'default' => 'zoom',
                     'options' => [
-                        '' => esc_html__('None', 'cubeportfolio-elementor-widget'),
                         'zoom' => esc_html__('Zoom', 'cubeportfolio-elementor-widget'),
                     ],
                     'condition' => [ 'content_position' => 'content-under-img' ],
@@ -555,7 +554,16 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     }
                     echo '</div>';
                 }
-                echo '<div id="' . esc_attr($widget_id) . '" class="cubeportfolio-elementor-widget">';
+                
+                // Determinar clase de animación para contenedor principal (solo under-img)
+                $container_class = 'cubeportfolio-elementor-widget';
+                if ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])) {
+                    if ($settings['under_image_caption_animation'] === 'zoom') {
+                        $container_class .= ' zoom-effect';
+                    }
+                }
+                
+                echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '">';
 
                 // QUERY OBJECT FIX (Your fatal error)
                 $args = [
@@ -586,20 +594,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 if ($query->have_posts()) :
                     while ($query->have_posts()) : $query->the_post();
                         
-                        // Determinar clases de animación
-                        $zoom_class = '';
+                        // Determinar clases de animación (solo para overlay)
                         $hover_class = '';
                         if ($settings['content_position'] === 'content-overlay') {
                             $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
                             $hover_class = $animation ? 'cbp-caption-' . $animation : '';
-                            // Para overlay, el zoom lo maneja CubePortfolio con cbp-caption-zoom
-                        } elseif ($settings['content_position'] === 'content-under-img') {
-                            $animation = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : '';
-                            if ($animation === 'zoom') {
-                                $zoom_class = 'zoom-effect';
-                            }
-                            // Para under-img NO usamos clases en el anchor
                         }
+                        // Para under-img la clase va en el contenedor principal, no en items individuales
                         
                         $item_terms = get_the_terms(get_the_ID(), 'portfolio_category');
                         $desc_names = [];
@@ -622,7 +623,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 data-cbp-mosaic-height="<?php echo esc_attr($cell['height']); ?>"
                             <?php endif; ?>
                         >
-                            <div class="cbp-item-wrapper <?php echo $zoom_class; ?>">
+                            <div class="cbp-item-wrapper">
                                 <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
