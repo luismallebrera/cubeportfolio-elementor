@@ -278,6 +278,133 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 ]);
                 $this->end_controls_section();
 
+                // Toggle Button Style Section
+                $this->start_controls_section('section_toggle_button_style', [
+                    'label' => esc_html__('Botón Toggle - Estilos', 'cubeportfolio-elementor-widget'),
+                    'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
+                $this->add_group_control(
+                    \Elementor\Group_Control_Typography::get_type(),
+                    [
+                        'name' => 'toggle_button_typography',
+                        'selector' => '{{WRAPPER}} .cbp-filter-toggle-btn',
+                    ]
+                );
+                $this->add_control('toggle_button_bg_color', [
+                    'label' => esc_html__('Color de Fondo', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#333',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('toggle_button_text_color', [
+                    'label' => esc_html__('Color de Texto', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#fff',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_responsive_control('toggle_button_padding', [
+                    'label' => esc_html__('Padding', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%', 'em'],
+                    'default' => [
+                        'top' => '12',
+                        'right' => '24',
+                        'bottom' => '12',
+                        'left' => '24',
+                        'unit' => 'px',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_responsive_control('toggle_button_border_radius', [
+                    'label' => esc_html__('Border Radius', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%'],
+                    'default' => [
+                        'top' => '4',
+                        'right' => '4',
+                        'bottom' => '4',
+                        'left' => '4',
+                        'unit' => 'px',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_control('toggle_button_hover_heading', [
+                    'label' => esc_html__('Hover', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::HEADING,
+                    'separator' => 'before',
+                ]);
+                $this->add_control('toggle_button_hover_bg_color', [
+                    'label' => esc_html__('Color de Fondo (Hover)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#555',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn:hover' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_control('toggle_button_hover_text_color', [
+                    'label' => esc_html__('Color de Texto (Hover)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn:hover' => 'color: {{VALUE}};',
+                    ],
+                ]);
+                $this->end_controls_section();
+
+                // Filters Panel Style Section
+                $this->start_controls_section('section_filters_panel_style', [
+                    'label' => esc_html__('Panel de Filtros - Estilos', 'cubeportfolio-elementor-widget'),
+                    'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
+                $this->add_control('filters_panel_bg_color', [
+                    'label' => esc_html__('Color de Fondo', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'default' => '#fff',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'background-color: {{VALUE}};',
+                    ],
+                ]);
+                $this->add_responsive_control('filters_panel_padding', [
+                    'label' => esc_html__('Padding', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%', 'em'],
+                    'default' => [
+                        'top' => '15',
+                        'right' => '15',
+                        'bottom' => '15',
+                        'left' => '15',
+                        'unit' => 'px',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->add_responsive_control('filters_panel_border_radius', [
+                    'label' => esc_html__('Border Radius', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%'],
+                    'default' => [
+                        'top' => '4',
+                        'right' => '4',
+                        'bottom' => '4',
+                        'left' => '4',
+                        'unit' => 'px',
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+                $this->end_controls_section();
+
                 // Animation Section
                 $this->start_controls_section('layout_animation_section', [
                     'label' => esc_html__('Animation', 'cubeportfolio-elementor-widget'),
@@ -559,19 +686,10 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         left: 50%;
                         transform: translateX(-50%);
                         z-index: 9999;
-                        padding: 12px 24px;
-                        background: #333;
-                        color: #fff;
                         border: none;
-                        border-radius: 4px;
                         cursor: pointer;
-                        font-size: 14px;
-                        font-weight: 500;
-                        transition: background 0.3s ease;
+                        transition: all 0.3s ease;
                         min-width: 200px;
-                    }
-                    .cbp-filter-toggle-btn:hover {
-                        background: #555;
                     }
                     .cbp-filters-wrapper {
                         position: fixed;
@@ -582,14 +700,11 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         overflow: hidden;
                         max-height: 0;
                         transition: max-height 0.3s ease;
-                        background: #fff;
-                        border-radius: 4px;
                         box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
                         min-width: 200px;
                     }
                     .cbp-filters-wrapper.active {
                         max-height: 500px;
-                        padding: 15px;
                     }
                     .cbp-filters-wrapper .cbp-l-filters-button {
                         display: flex;
