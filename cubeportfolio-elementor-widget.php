@@ -275,7 +275,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::HIDDEN,
                     'default' => 'yes',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; border: none; cursor: pointer; transition: all 0.3s ease; min-width: 200px;',
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; border: none; cursor: pointer; transition: all 0.3s ease; min-width: 200px;',
                     ],
                     'condition' => ['show_filter_toggle' => 'yes'],
                 ]);
@@ -284,7 +284,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::HIDDEN,
                     'default' => 'yes',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; visibility: hidden; background-color: transparent;',
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; visibility: hidden; background-color: transparent;',
                         '{{WRAPPER}} .cbp-filters-wrapper::before' => 'content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: red;',
                         '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'display: flex; flex-direction: column; gap: 5px;',
                         '{{WRAPPER}} .cbp-filters-wrapper.active' => 'visibility: visible;',
