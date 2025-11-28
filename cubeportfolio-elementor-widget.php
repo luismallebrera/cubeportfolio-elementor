@@ -721,21 +721,27 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         max-height: 500px;
                     }
                     /* Mostrar en editor de Elementor */
-                    .elementor-editor-active .cbp-filter-toggle-btn {
-                        position: relative !important;
+                    body.elementor-editor-active .cbp-filter-toggle-btn,
+                    .elementor-editor-active .cbp-filter-toggle-btn,
+                    .elementor-preview-mode .cbp-filter-toggle-btn {
+                        position: static !important;
                         bottom: auto !important;
                         left: auto !important;
                         transform: none !important;
-                        margin-bottom: 10px;
+                        margin-bottom: 10px !important;
+                        display: block !important;
                     }
-                    .elementor-editor-active .cbp-filters-wrapper {
-                        position: relative !important;
+                    body.elementor-editor-active .cbp-filters-wrapper,
+                    .elementor-editor-active .cbp-filters-wrapper,
+                    .elementor-preview-mode .cbp-filters-wrapper {
+                        position: static !important;
                         bottom: auto !important;
                         left: auto !important;
                         transform: none !important;
                         max-height: none !important;
                         overflow: visible !important;
-                        margin-bottom: 20px;
+                        margin-bottom: 20px !important;
+                        display: block !important;
                     }
                     .cbp-filters-wrapper .cbp-l-filters-button {
                         display: flex;
