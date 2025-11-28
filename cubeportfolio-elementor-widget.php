@@ -643,7 +643,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 </a>
                                 <?php if ($settings['content_position'] === 'content-under-img'): ?>
                                     <?php if (!empty($settings['show_title']) && $settings['show_title'] == 'yes'): ?>
-                                        <div class="cbp-l-grid-projects-title"><?php the_title(); ?></div>
+                                        <div class="cbp-l-grid-projects-title"><a href="<?php echo esc_url(get_permalink()); ?>"><?php the_title(); ?></a></div>
                                     <?php endif; ?>
                                     <?php if (!empty($desc_names) && !empty($settings['show_subtitle']) && $settings['show_subtitle'] == 'yes'): ?>
                                         <div class="cbp-l-grid-projects-desc"><?php echo esc_html(implode(' / ', $desc_names)); ?></div>
