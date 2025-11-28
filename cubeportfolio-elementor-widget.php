@@ -906,17 +906,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     $('#filters-<?php echo esc_js($widget_id); ?> .cbp-filter-item').on('click', function() {
                         $filtersWrapper.removeClass('active');
                         $toggleBtn.text($toggleBtn.data('text-open'));
-                        
-                        // Scroll simple después de hacer clic en filtro
-                        setTimeout(function() {
-                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
-                            if (targetElement.length) {
-                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
-                                $('html, body').animate({
-                                    scrollTop: targetPosition
-                                }, 800);
-                            }
-                        }, 600);
                     });
                     
                     $('#<?php echo esc_js($widget_id); ?>').cubeportfolio({
