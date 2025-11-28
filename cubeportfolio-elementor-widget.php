@@ -956,9 +956,15 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             setTimeout(function() {
                                 var $grid = $('#<?php echo esc_js($widget_id); ?>');
                                 var offset = $grid.offset().top - 100;
-                                $('html, body').animate({
-                                    scrollTop: offset
-                                }, 600);
+                                
+                                // Check if Lenis is available
+                                if (window.lenis) {
+                                    window.lenis.scrollTo(offset, { duration: 0.6 });
+                                } else {
+                                    $('html, body').animate({
+                                        scrollTop: offset
+                                    }, 600);
+                                }
                             }, 100);
                         }
                     });
