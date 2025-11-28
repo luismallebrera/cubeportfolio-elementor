@@ -916,6 +916,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         gapHorizontal: <?php echo $horizontal_gap; ?>,
                         gapVertical: <?php echo $vertical_gap; ?>,
                         gridAdjustment: 'responsive',
+                        auto: 0,
                         <?php if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])): ?>
                         caption: '<?php echo esc_js($settings['overlay_caption_animation']); ?>',
                         <?php endif; ?>
