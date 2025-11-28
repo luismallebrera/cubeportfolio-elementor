@@ -31,7 +31,7 @@
 }
 
 .cbp-filters-wrapper.active {
-    max-height: 500px;
+    max-height: 100vh;
 }
 
 .cbp-filters-wrapper .cbp-l-filters-button {
