@@ -286,7 +286,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'selectors' => [
                         '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; transition: 1850ms cubic-bezier(0.1, 0.7, 0.5, 1); box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); visibility: hidden;',
                         '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'display: flex; flex-direction: column; gap: 5px;',
-                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: 100vh; visibility: visible;',
+                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'visibility: visible;',
                     ],
                     'condition' => ['show_filter_toggle' => 'yes'],
                 ]);
@@ -300,6 +300,36 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'label' => esc_html__('Texto del Botón (Cerrar)', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::TEXT,
                     'default' => esc_html__('Cerrar', 'cubeportfolio-elementor-widget'),
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
+                $this->add_responsive_control('filters_panel_max_height', [
+                    'label' => esc_html__('Altura Máxima del Panel', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::SLIDER,
+                    'size_units' => ['px', 'vh', '%'],
+                    'range' => [
+                        'px' => [
+                            'min' => 100,
+                            'max' => 1000,
+                            'step' => 10,
+                        ],
+                        'vh' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 10,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'default' => [
+                        'unit' => 'vh',
+                        'size' => 100,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: {{SIZE}}{{UNIT}};',
+                    ],
                     'condition' => ['show_filter_toggle' => 'yes'],
                 ]);
                 $this->end_controls_section();
