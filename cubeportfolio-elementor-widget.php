@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 3.1.0
+ * Version: 3.2.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -232,10 +232,10 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $this->add_control('under_image_caption_animation', [
                     'label' => esc_html__('Hover Effect', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::SELECT,
-                    'default' => 'zoom-effect',
+                    'default' => 'zoom',
                     'options' => [
-                        'no-effect' => esc_html__('None', 'cubeportfolio-elementor-widget'),
-                        'zoom-effect' => esc_html__('Zoom', 'cubeportfolio-elementor-widget'),
+                        '' => esc_html__('None', 'cubeportfolio-elementor-widget'),
+                        'zoom' => esc_html__('Zoom', 'cubeportfolio-elementor-widget'),
                     ],
                     'condition' => [ 'content_position' => 'content-under-img' ],
                 ]);
@@ -583,12 +583,20 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $item_index = 0;
                 $pattern_count = count($mosaic_cells);
 
-                $hover_class = '';
+                // Determinar clase de zoom para el contenedor
+                $zoom_class = '';
                 if ($settings['content_position'] === 'content-overlay') {
                     $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
+                    if ($animation === 'zoom') {
+                        $zoom_class = 'zoom-effect';
+                    }
                     $hover_class = $animation ? 'cbp-caption-' . $animation : '';
                 } elseif ($settings['content_position'] === 'content-under-img') {
-                    $hover_class = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : 'no-effect';
+                    $animation = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : '';
+                    if ($animation === 'zoom') {
+                        $zoom_class = 'zoom-effect';
+                    }
+                    $hover_class = '';
                 }
 
                 if ($query->have_posts()) :
@@ -614,7 +622,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 data-cbp-mosaic-height="<?php echo esc_attr($cell['height']); ?>"
                             <?php endif; ?>
                         >
-                            <div class="cbp-item-wrapper">
+                            <div class="cbp-item-wrapper <?php echo $zoom_class; ?>">
                                 <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
