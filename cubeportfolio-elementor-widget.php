@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CubePortfolio Elementor Widget
  * Description: Elementor widget to display portfolio items with CubePortfolio, including grid, masonry, landscape, and fully custom mosaic support.
- * Version: 2.5.0
+ * Version: 2.6.0
  * Author: Your Name
  * Text Domain: cubeportfolio-elementor-widget
  */
@@ -547,11 +547,33 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $horizontal_gap = isset($settings['horizontal_space']['size']) ? intval($settings['horizontal_space']['size']) : 20;
                 $vertical_gap = isset($settings['vertical_space']['size']) ? intval($settings['vertical_space']['size']) : 20;
-                $portfolio_columns = ($settings['portfolio_layout'] === 'mosaic' && $max_width) ? $max_width : (
-                    isset($settings['portfolio_columns']) ? intval($settings['portfolio_columns']) : 3
-                );
+                
+                // Get responsive columns value
+                $portfolio_columns = 3; // default
+                if ($settings['portfolio_layout'] === 'mosaic' && $max_width) {
+                    $portfolio_columns = $max_width;
+                } else {
+                    // Check for responsive values
+                    if (!empty($settings['portfolio_columns'])) {
+                        $portfolio_columns = intval($settings['portfolio_columns']);
+                    } elseif (!empty($settings['portfolio_columns_tablet'])) {
+                        $portfolio_columns = intval($settings['portfolio_columns_tablet']);
+                    } elseif (!empty($settings['portfolio_columns_mobile'])) {
+                        $portfolio_columns = intval($settings['portfolio_columns_mobile']);
+                    }
+                }
 
                 $scroll_offset = isset($settings['scroll_offset']) ? intval($settings['scroll_offset']) : 0;
+                
+                // Get responsive columns for each breakpoint
+                $cols_desktop = !empty($settings['portfolio_columns']) ? intval($settings['portfolio_columns']) : 3;
+                $cols_tablet = !empty($settings['portfolio_columns_tablet']) ? intval($settings['portfolio_columns_tablet']) : $cols_desktop;
+                $cols_mobile = !empty($settings['portfolio_columns_mobile']) ? intval($settings['portfolio_columns_mobile']) : $cols_tablet;
+                
+                // For mosaic, use max_width as desktop columns
+                if ($settings['portfolio_layout'] === 'mosaic' && $max_width) {
+                    $cols_desktop = $max_width;
+                }
                 ?>
                 <script>
                 jQuery(document).ready(function($){
@@ -570,7 +592,9 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         mosaic: <?php echo json_encode($mosaic_cells); ?>,
                         <?php endif; ?>
                         mediaQueries: [
-                            { width: 1200, cols: <?php echo $portfolio_columns; ?> }
+                            { width: 1500, cols: <?php echo $cols_desktop; ?> },
+                            { width: 1100, cols: <?php echo $cols_tablet; ?> },
+                            { width: 800, cols: <?php echo $cols_mobile; ?> }
                         ]
                     });
 
