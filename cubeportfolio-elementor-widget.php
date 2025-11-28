@@ -965,7 +965,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                         scrollTop: offset
                                     }, 600);
                                 }
-                            }, 100);
+                            }, 700);
                         }
                     });
                     
