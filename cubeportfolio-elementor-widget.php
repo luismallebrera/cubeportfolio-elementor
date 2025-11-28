@@ -694,62 +694,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-caption-zoom .cbp-item-wrapper:hover img {
                         transform: scale(1.1);
                     }
-                    .cbp-filter-toggle-btn {
-                        position: fixed;
-                        bottom: 20px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        z-index: 9999;
-                        border: none;
-                        cursor: pointer;
-                        transition: all 0.3s ease;
-                        min-width: 200px;
-                    }
-                    .cbp-filters-wrapper {
-                        position: fixed;
-                        bottom: 70px;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        z-index: 9998;
-                        overflow: hidden;
-                        max-height: 0;
-                        transition: max-height 0.3s ease;
-                        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-                        min-width: 200px;
-                    }
-                    .cbp-filters-wrapper.active {
-                        max-height: 500px;
-                    }
-                    /* Mostrar en editor de Elementor - usar atributos data */
-                    [data-elementor-type] .cbp-filter-toggle-btn {
-                        position: static !important;
-                        bottom: auto !important;
-                        left: auto !important;
-                        transform: none !important;
-                        margin: 0 0 15px 0 !important;
-                        display: block !important;
-                        width: 100% !important;
-                        max-width: 300px !important;
-                    }
-                    [data-elementor-type] .cbp-filters-wrapper {
-                        position: static !important;
-                        bottom: auto !important;
-                        left: auto !important;
-                        transform: none !important;
-                        max-height: none !important;
-                        overflow: visible !important;
-                        margin: 0 0 20px 0 !important;
-                        display: block !important;
-                        width: 100% !important;
-                        box-shadow: none !important;
-                    }
-                    .cbp-filters-wrapper .cbp-l-filters-button {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 5px;
-                    }
                 ';
                 wp_add_inline_style('cubeportfolio-css', $inline_css);
+                
+                // Cargar CSS de filtros toggle
+                if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
+                    wp_enqueue_style('cbp-filters-toggle', plugins_url('assets/filters-toggle.css', __FILE__), [], '3.3.0');
+                }
 
                 // Get Categories
                 $categories = get_terms([
