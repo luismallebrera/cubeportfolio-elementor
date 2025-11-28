@@ -811,6 +811,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'default' => 'center',
                     'selectors' => [
                         '{{WRAPPER}} .cbp-l-filters-button' => 'align-items: {{VALUE}};',
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'width: 100%;',
                     ],
                 ]);
                 $this->add_control('filters_hover_color', [
