@@ -697,9 +697,10 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 ';
                 wp_add_inline_style('cubeportfolio-css', $inline_css);
                 
-                // Cargar CSS de filtros toggle
+                // Cargar CSS de filtros toggle inline
                 if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
-                    wp_enqueue_style('cbp-filters-toggle', plugins_url('assets/filters-toggle.css', __FILE__), [], '3.3.0');
+                    $toggle_css = file_get_contents(plugin_dir_path(__FILE__) . 'assets/filters-toggle.css');
+                    wp_add_inline_style('cubeportfolio-css', $toggle_css);
                 }
 
                 // Get Categories
