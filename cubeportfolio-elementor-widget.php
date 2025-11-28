@@ -720,6 +720,23 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-filters-wrapper.active {
                         max-height: 500px;
                     }
+                    /* Mostrar en editor de Elementor */
+                    .elementor-editor-active .cbp-filter-toggle-btn {
+                        position: relative !important;
+                        bottom: auto !important;
+                        left: auto !important;
+                        transform: none !important;
+                        margin-bottom: 10px;
+                    }
+                    .elementor-editor-active .cbp-filters-wrapper {
+                        position: relative !important;
+                        bottom: auto !important;
+                        left: auto !important;
+                        transform: none !important;
+                        max-height: none !important;
+                        overflow: visible !important;
+                        margin-bottom: 20px;
+                    }
                     .cbp-filters-wrapper .cbp-l-filters-button {
                         display: flex;
                         flex-direction: column;
