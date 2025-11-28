@@ -701,7 +701,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         if (targetElement.length && window.lenis) {
                             var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
                             window.lenis.scrollTo(targetPosition, {
-                                duration: 1.2,
+                                duration: 0.8,
                                 easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
                             });
                         }
