@@ -906,6 +906,17 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     $('#filters-<?php echo esc_js($widget_id); ?> .cbp-filter-item').on('click', function() {
                         $filtersWrapper.removeClass('active');
                         $toggleBtn.text($toggleBtn.data('text-open'));
+                        
+                        // Scroll simple después de hacer clic en filtro
+                        setTimeout(function() {
+                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
+                            if (targetElement.length) {
+                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
+                                $('html, body').animate({
+                                    scrollTop: targetPosition
+                                }, 800);
+                            }
+                        }, 600);
                     });
                     
                     $('#<?php echo esc_js($widget_id); ?>').cubeportfolio({
@@ -938,27 +949,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                             }
                         },
                         displayTypeSpeed: 100
-                    }).on('filterComplete.cbp', function() {
-                        // Esperar un momento antes de hacer scroll para asegurar que la animación termine
-                        setTimeout(function() {
-                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
-                            if (targetElement.length) {
-                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
-                                
-                                if (window.lenis) {
-                                    // Usar Lenis con animación suave
-                                    window.lenis.scrollTo(targetPosition, {
-                                        duration: 1.2,
-                                        easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
-                                    });
-                                } else {
-                                    // Fallback con jQuery animate
-                                    $('html, body').animate({
-                                        scrollTop: targetPosition
-                                    }, 800);
-                                }
-                            }
-                        }, 300);
                     });
                 });
                 </script>
