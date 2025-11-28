@@ -284,7 +284,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::HIDDEN,
                     'default' => 'yes',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; transition: max-height 0.3s ease; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);',
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; transition: max-height 0.3s ease; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);',
                         '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'display: flex; flex-direction: column; gap: 5px;',
                         '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: 500px;',
                     ],
