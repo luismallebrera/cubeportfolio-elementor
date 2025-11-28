@@ -900,6 +900,17 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         } else {
                             $btn.text($btn.data('text-open'));
                         }
+                        
+                        // Scroll suave hacia el grid al abrir
+                        if ($filtersWrapper.hasClass('active')) {
+                            setTimeout(function() {
+                                var $grid = $('#<?php echo esc_js($widget_id); ?>');
+                                var offset = $grid.offset().top - 100;
+                                $('html, body').animate({
+                                    scrollTop: offset
+                                }, 600);
+                            }, 100);
+                        }
                     });
                     
                     // Cerrar panel al hacer click en un filtro
@@ -916,7 +927,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         gapHorizontal: <?php echo $horizontal_gap; ?>,
                         gapVertical: <?php echo $vertical_gap; ?>,
                         gridAdjustment: 'responsive',
-                        auto: false,
                         <?php if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])): ?>
                         caption: '<?php echo esc_js($settings['overlay_caption_animation']); ?>',
                         <?php endif; ?>
