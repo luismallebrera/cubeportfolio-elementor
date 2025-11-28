@@ -270,6 +270,24 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'return_value' => 'yes',
                     'default' => '',
                 ]);
+                // Hidden control for toggle button base styles
+                $this->add_control('toggle_button_base_styles', [
+                    'type' => \Elementor\Controls_Manager::HIDDEN,
+                    'default' => 'yes',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filter-toggle-btn' => 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; border: none; cursor: pointer; transition: all 0.3s ease; min-width: 200px;',
+                    ],
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
+                // Hidden control for filters wrapper base styles
+                $this->add_control('filters_wrapper_base_styles', [
+                    'type' => \Elementor\Controls_Manager::HIDDEN,
+                    'default' => 'yes',
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; transition: max-height 0.3s ease; box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);',
+                    ],
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
                 $this->add_control('filter_toggle_text', [
                     'label' => esc_html__('Texto del Botón', 'cubeportfolio-elementor-widget'),
                     'type' => \Elementor\Controls_Manager::TEXT,
