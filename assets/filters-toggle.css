@@ -40,10 +40,15 @@
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     background-color: #FFFFFFA8;
     border-radius: 4px 4px 4px 4px;
+    transform: scaleY(0);
 }
 
 .cbp-filters-wrapper.active {
     visibility: visible;
+}
+
+.cbp-filters-wrapper.active::before {
+    transform: scaleY(1);
 }
 
 .cbp-filters-wrapper .cbp-l-filters-button {
