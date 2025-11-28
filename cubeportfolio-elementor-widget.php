@@ -720,11 +720,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-filters-wrapper.active {
                         max-height: 500px;
                     }
-                    /* Mostrar en editor de Elementor */
-                    .cubeportfolio-widget-container.elementor-editing-mode .cbp-filter-toggle-btn,
-                    body.elementor-editor-active .cbp-filter-toggle-btn,
-                    .elementor-editor-active .cbp-filter-toggle-btn,
-                    .elementor-preview-mode .cbp-filter-toggle-btn {
+                    /* Mostrar en editor de Elementor - usar atributos data */
+                    [data-elementor-type] .cbp-filter-toggle-btn {
                         position: static !important;
                         bottom: auto !important;
                         left: auto !important;
@@ -734,10 +731,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         width: 100% !important;
                         max-width: 300px !important;
                     }
-                    .cubeportfolio-widget-container.elementor-editing-mode .cbp-filters-wrapper,
-                    body.elementor-editor-active .cbp-filters-wrapper,
-                    .elementor-editor-active .cbp-filters-wrapper,
-                    .elementor-preview-mode .cbp-filters-wrapper {
+                    [data-elementor-type] .cbp-filters-wrapper {
                         position: static !important;
                         bottom: auto !important;
                         left: auto !important;
@@ -762,12 +756,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'taxonomy' => 'portfolio_category',
                     'hide_empty' => true,
                 ]);
-                
-                // Detectar si estamos en el editor de Elementor
-                $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
-                $editor_class = $is_editor ? ' elementor-editing-mode' : '';
-                
-                echo '<div class="cubeportfolio-widget-container' . $editor_class . '">';
+                echo '<div class="cubeportfolio-widget-container">';
                 
                 // Botón toggle si está activado
                 if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
