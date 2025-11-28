@@ -286,7 +286,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'selectors' => [
                         '{{WRAPPER}} .cbp-filters-wrapper' => 'position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 9998; overflow: hidden; max-height: 0; transition: 1850ms cubic-bezier(0.1, 0.7, 0.5, 1); box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); visibility: hidden;',
                         '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'display: flex; flex-direction: column; gap: 5px;',
-                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: 500px; visibility: visible;',
+                        '{{WRAPPER}} .cbp-filters-wrapper.active' => 'max-height: 100vh; visibility: visible;',
                     ],
                     'condition' => ['show_filter_toggle' => 'yes'],
                 ]);
