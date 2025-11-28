@@ -940,26 +940,20 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         displayTypeSpeed: 100
                     }).on('filterComplete.cbp', function() {
                         // Callback que se ejecuta DESPUÉS de que termine la animación de filtrado
-                        // Esperamos un pequeño delay para que termine la animación visual
-                        setTimeout(function() {
-                            var targetElement = $('#<?php echo esc_js($widget_id); ?>');
-                            if (targetElement.length) {
-                                var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
-                                
-                                if (window.lenis) {
-                                    // Usar Lenis si está disponible
-                                    window.lenis.scrollTo(targetPosition, {
-                                        duration: 0.8,
-                                        easing: function(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
-                                    });
-                                } else {
-                                    // Fallback a jQuery animate
-                                    $('html, body').animate({
-                                        scrollTop: targetPosition
-                                    }, 800);
-                                }
+                        var targetElement = $('#<?php echo esc_js($widget_id); ?>');
+                        if (targetElement.length) {
+                            var targetPosition = targetElement.offset().top - <?php echo $scroll_offset; ?>;
+                            
+                            if (window.lenis) {
+                                // Usar Lenis si está disponible
+                                window.lenis.scrollTo(targetPosition, {
+                                    immediate: true
+                                });
+                            } else {
+                                // Fallback a scroll inmediato
+                                window.scrollTo(0, targetPosition);
                             }
-                        }, 100);
+                        }
                     });
                 });
                 </script>
