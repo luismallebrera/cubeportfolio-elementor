@@ -427,7 +427,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::COLOR,
                     'default' => '#fff',
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper' => 'background-color: {{VALUE}};',
+                        '{{WRAPPER}} .cbp-filters-wrapper::before' => 'background-color: {{VALUE}};',
                     ],
                 ]);
                 $this->add_responsive_control('filters_panel_padding', [
@@ -442,7 +442,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'unit' => 'px',
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper .cbp-l-filters-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        '{{WRAPPER}} .cbp-filters-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
                 $this->add_responsive_control('filters_panel_border_radius', [
@@ -457,7 +457,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         'unit' => 'px',
                     ],
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-filters-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        '{{WRAPPER}} .cbp-filters-wrapper::before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
                 $this->end_controls_section();
