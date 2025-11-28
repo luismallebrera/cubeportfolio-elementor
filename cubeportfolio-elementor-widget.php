@@ -679,10 +679,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     .cbp-caption-active .cbp-caption-activeWrap {
                         display: flex;
                         flex-direction: column;
-                        background-color: #282727;
-                        padding: 0px 0px 20px 20px;
-                        justify-content: flex-end;
-                        align-items: flex-start;
                     }
                     .cbp-caption-zoom {
                         overflow: hidden;
