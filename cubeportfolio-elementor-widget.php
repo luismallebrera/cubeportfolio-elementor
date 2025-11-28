@@ -276,6 +276,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'default' => esc_html__('Filtros', 'cubeportfolio-elementor-widget'),
                     'condition' => ['show_filter_toggle' => 'yes'],
                 ]);
+                $this->add_control('filter_toggle_text_close', [
+                    'label' => esc_html__('Texto del Botón (Cerrar)', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::TEXT,
+                    'default' => esc_html__('Cerrar', 'cubeportfolio-elementor-widget'),
+                    'condition' => ['show_filter_toggle' => 'yes'],
+                ]);
                 $this->end_controls_section();
 
                 // Toggle Button Style Section
@@ -732,7 +738,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 // Botón toggle si está activado
                 if (!empty($settings['show_filter_toggle']) && $settings['show_filter_toggle'] === 'yes') {
                     $toggle_text = !empty($settings['filter_toggle_text']) ? esc_html($settings['filter_toggle_text']) : esc_html__('Filtros', 'cubeportfolio-elementor-widget');
-                    echo '<button class="cbp-filter-toggle-btn" data-target="filters-' . esc_attr($widget_id) . '">' . $toggle_text . '</button>';
+                    $toggle_text_close = !empty($settings['filter_toggle_text_close']) ? esc_html($settings['filter_toggle_text_close']) : esc_html__('Cerrar', 'cubeportfolio-elementor-widget');
+                    echo '<button class="cbp-filter-toggle-btn" data-target="filters-' . esc_attr($widget_id) . '" data-text-open="' . esc_attr($toggle_text) . '" data-text-close="' . esc_attr($toggle_text_close) . '">' . $toggle_text . '</button>';
                 }
                 
                 if (!empty($categories) && !is_wp_error($categories)) {
@@ -880,8 +887,25 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 <script>
                 jQuery(document).ready(function($){
                     // Toggle para filtros
-                    $('.cbp-filter-toggle-btn[data-target="filters-<?php echo esc_js($widget_id); ?>"]').on('click', function() {
-                        $('#filters-wrapper-<?php echo esc_js($widget_id); ?>').toggleClass('active');
+                    var $toggleBtn = $('.cbp-filter-toggle-btn[data-target="filters-<?php echo esc_js($widget_id); ?>"]');
+                    var $filtersWrapper = $('#filters-wrapper-<?php echo esc_js($widget_id); ?>');
+                    
+                    $toggleBtn.on('click', function() {
+                        var $btn = $(this);
+                        $filtersWrapper.toggleClass('active');
+                        
+                        // Cambiar texto del botón
+                        if ($filtersWrapper.hasClass('active')) {
+                            $btn.text($btn.data('text-close'));
+                        } else {
+                            $btn.text($btn.data('text-open'));
+                        }
+                    });
+                    
+                    // Cerrar panel al hacer click en un filtro
+                    $('#filters-<?php echo esc_js($widget_id); ?> .cbp-filter-item').on('click', function() {
+                        $filtersWrapper.removeClass('active');
+                        $toggleBtn.text($toggleBtn.data('text-open'));
                     });
                     
                     $('#<?php echo esc_js($widget_id); ?>').cubeportfolio({
