@@ -25,7 +25,6 @@
     transform: translateX(-50%);
     z-index: 9998;
     overflow: hidden;
-    max-height: 0;
     min-width: 200px;
     visibility: hidden;
     transition: visibility 0s 1s;
