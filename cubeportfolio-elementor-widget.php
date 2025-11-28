@@ -621,6 +621,14 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                 ]);
+                $this->add_responsive_control('filters_margin', [
+                    'label'     => esc_html__('Margin', 'cubeportfolio-elementor-widget'),
+                    'type'      => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units'=> ['px', '%', 'em'],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-l-filters-button .cbp-filter-item' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
                 $this->add_control('filters_hover_color', [
                     'label'     => esc_html__('Color texto (Hover)', 'cubeportfolio-elementor-widget'),
                     'type'      => \Elementor\Controls_Manager::COLOR,
