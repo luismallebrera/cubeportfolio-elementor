@@ -1098,6 +1098,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 loadItems: 3,
                             }
                         },
+                        displayType: 'bottomToTop',
                         displayTypeSpeed: 100
                     });
                 });
