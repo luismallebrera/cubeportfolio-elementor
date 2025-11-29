@@ -901,15 +901,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     echo '</div>';
                 }
                 
-                // Determinar clase de animación para contenedor principal
+                // Contenedor principal
                 $container_class = 'cubeportfolio-elementor-widget';
-                
-                // Aplicar clase de animación según el modo
-                if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])) {
-                    $container_class .= ' cbp-caption-' . esc_attr($settings['overlay_caption_animation']);
-                } elseif ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])) {
-                    $container_class .= ' cbp-caption-' . esc_attr($settings['under_image_caption_animation']);
-                }
                 
                 echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '">';
 
@@ -1076,6 +1069,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         gridAdjustment: 'responsive',
                         <?php if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])): ?>
                         caption: '<?php echo esc_js($settings['overlay_caption_animation']); ?>',
+                        <?php elseif ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])): ?>
+                        caption: '<?php echo esc_js($settings['under_image_caption_animation']); ?>',
                         <?php endif; ?>
                         <?php if ($settings['portfolio_layout'] === 'mosaic' && !empty($mosaic_cells)): ?>
                         mosaic: <?php echo json_encode($mosaic_cells); ?>,
