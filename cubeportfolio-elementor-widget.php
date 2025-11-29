@@ -1089,8 +1089,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 loadItems: 3,
                             }
                         },
-                        displayType: 'bottomToTop',
-                        displayTypeSpeed: 400
+                        displayType: 'fadeInToTop',
+                        displayTypeSpeed: 100
                     });
                     
                     // Show container after a short delay to ensure layout is calculated
