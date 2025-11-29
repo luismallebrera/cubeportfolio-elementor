@@ -903,7 +903,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 // Contenedor principal
                 $container_class = 'cubeportfolio-elementor-widget';
                 
-                echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '">';
+                echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '" style="opacity: 0; transition: opacity 0.3s ease;">';
 
                 // QUERY OBJECT FIX (Your fatal error)
                 $args = [
@@ -1091,6 +1091,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         },
                         displayType: 'bottomToTop',
                         displayTypeSpeed: 100
+                    }).on('initComplete', function() {
+                        $('#<?php echo esc_js($widget_id); ?>').css('opacity', '1');
                     });
                 });
                 </script>
