@@ -901,13 +901,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     echo '</div>';
                 }
                 
-                // Determinar clase de animación para contenedor principal (solo under-img)
+                // Determinar clase de animación para contenedor principal
                 $container_class = 'cubeportfolio-elementor-widget';
-                if ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])) {
-                    if ($settings['under_image_caption_animation'] === 'zoom') {
-                        $container_class .= ' cbp-caption-zoom';
-                    }
-                }
                 
                 echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '">';
 
@@ -945,8 +940,11 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         if ($settings['content_position'] === 'content-overlay') {
                             $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
                             $hover_class = $animation ? 'cbp-caption-' . $animation : '';
+                        } elseif ($settings['content_position'] === 'content-under-img') {
+                            // Aplicar animación zoom también en under-img
+                            $animation = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : '';
+                            $hover_class = $animation ? 'cbp-caption-' . $animation : '';
                         }
-                        // Para under-img la clase va en el contenedor principal, no en items individuales
                         
                         $item_terms = get_the_terms(get_the_ID(), 'portfolio_category');
                         $desc_names = [];
