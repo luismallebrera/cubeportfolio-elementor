@@ -697,7 +697,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 $this->start_controls_section('section_overlay_style', [
                     'label' => esc_html__('Overlay Content Style', 'cubeportfolio-elementor-widget'),
                     'tab' => \Elementor\Controls_Manager::TAB_STYLE,
-                    'condition' => [ 'content_position' => 'content-overlay' ],
                 ]);
                 $this->add_control('overlay_bg_color', [
                     'label'     => esc_html__('Fondo Overlay', 'cubeportfolio-elementor-widget'),
