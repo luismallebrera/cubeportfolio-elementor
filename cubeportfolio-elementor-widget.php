@@ -969,8 +969,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                 data-cbp-mosaic-height="<?php echo esc_attr($cell['height']); ?>"
                             <?php endif; ?>
                         >
-                            <div class="cbp-item-wrapper">
-                                <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
+                            <a href="<?php echo esc_url(get_permalink()); ?>" class="cbp-caption <?php echo $hover_class; ?>" target="_blank">
                                     <div class="cbp-caption-defaultWrap">
                                         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="<?php the_title_attribute(); ?>">
                                     </div>
@@ -993,7 +992,6 @@ add_action('elementor/widgets/register', function($widgets_manager){
                                         <div class="cbp-l-grid-projects-desc"><?php echo esc_html(implode(' / ', $desc_names)); ?></div>
                                     <?php endif; ?>
                                 <?php endif; ?>
-                            </div>
                         </div>
                         <?php
                         ++$item_index;
