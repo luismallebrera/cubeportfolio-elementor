@@ -665,7 +665,7 @@ add_action('elementor/widgets/register', function($widgets_manager){
                     'type' => \Elementor\Controls_Manager::DIMENSIONS,
                     'size_units' => ['px', '%'],
                     'selectors' => [
-                        '{{WRAPPER}} .cbp-item-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+                        '{{WRAPPER}} .cbp-caption' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
                     ],
                 ]);
 
