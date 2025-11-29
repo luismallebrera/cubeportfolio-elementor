@@ -904,6 +904,13 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 // Determinar clase de animación para contenedor principal
                 $container_class = 'cubeportfolio-elementor-widget';
                 
+                // Aplicar clase de animación según el modo
+                if ($settings['content_position'] === 'content-overlay' && !empty($settings['overlay_caption_animation'])) {
+                    $container_class .= ' cbp-caption-' . esc_attr($settings['overlay_caption_animation']);
+                } elseif ($settings['content_position'] === 'content-under-img' && !empty($settings['under_image_caption_animation'])) {
+                    $container_class .= ' cbp-caption-' . esc_attr($settings['under_image_caption_animation']);
+                }
+                
                 echo '<div id="' . esc_attr($widget_id) . '" class="' . esc_attr($container_class) . '">';
 
                 // QUERY OBJECT FIX (Your fatal error)
@@ -935,16 +942,8 @@ add_action('elementor/widgets/register', function($widgets_manager){
                 if ($query->have_posts()) :
                     while ($query->have_posts()) : $query->the_post();
                         
-                        // Determinar clases de animación (solo para overlay)
+                        // Las clases de animación van en el contenedor, no en items individuales
                         $hover_class = '';
-                        if ($settings['content_position'] === 'content-overlay') {
-                            $animation = !empty($settings['overlay_caption_animation']) ? esc_attr($settings['overlay_caption_animation']) : '';
-                            $hover_class = $animation ? 'cbp-caption-' . $animation : '';
-                        } elseif ($settings['content_position'] === 'content-under-img') {
-                            // Aplicar animación zoom también en under-img
-                            $animation = !empty($settings['under_image_caption_animation']) ? esc_attr($settings['under_image_caption_animation']) : '';
-                            $hover_class = $animation ? 'cbp-caption-' . $animation : '';
-                        }
                         
                         $item_terms = get_the_terms(get_the_ID(), 'portfolio_category');
                         $desc_names = [];
