@@ -655,6 +655,22 @@ add_action('elementor/widgets/register', function($widgets_manager){
 
                 $this->end_controls_section();
 
+                // Image Style Section
+                $this->start_controls_section('section_image_style', [
+                    'label' => esc_html__('Image Style', 'cubeportfolio-elementor-widget'),
+                    'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                ]);
+                $this->add_responsive_control('image_border_radius', [
+                    'label' => esc_html__('Border Radius', 'cubeportfolio-elementor-widget'),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => ['px', '%'],
+                    'selectors' => [
+                        '{{WRAPPER}} .cbp-caption-defaultWrap img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]);
+
+                $this->end_controls_section();
+
                 // Subtitle Style Section
                 $this->start_controls_section('section_subtitle_style', [
                     'label' => esc_html__('Subtitle Style', 'cubeportfolio-elementor-widget'),
