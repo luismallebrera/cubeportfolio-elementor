@@ -1091,9 +1091,12 @@ add_action('elementor/widgets/register', function($widgets_manager){
                         },
                         displayType: 'bottomToTop',
                         displayTypeSpeed: 100
-                    }).on('initComplete', function() {
-                        $('#<?php echo esc_js($widget_id); ?>').css('opacity', '1');
                     });
+                    
+                    // Show container after a short delay to ensure layout is calculated
+                    setTimeout(function() {
+                        $('#<?php echo esc_js($widget_id); ?>').css('opacity', '1');
+                    }, 100);
                 });
                 </script>
                 <?php
